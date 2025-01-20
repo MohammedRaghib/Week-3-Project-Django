@@ -32,10 +32,10 @@ cloudinary.config(
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u*x$8c8ci@=#8!@zw0g%4t96)2zs=8%x*j!5&z-&=-6%)_q^z5'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -122,17 +122,12 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': "djenpeqlo",
-    'API_KEY': "745276244642529",
-    'API_SECRET': "4VMQwk4MSDDQyv1_7RtUy396TfA",
-}
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': config("cloud_name"),
-#     'API_KEY': config("api_key"),
-#     'API_SECRET': config("api_secret"),
-# }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config("cloud_name"),
+    'API_KEY': config("api_key"),
+    'API_SECRET': config("api_secret"),
+}
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
