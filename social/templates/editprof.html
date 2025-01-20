@@ -1,0 +1,103 @@
+{% extends 'root.html' %}
+{% block title %}Profile{% endblock %}
+{% load static%}
+{% block content %}
+<style>
+    section.form {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: var(--form-bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    aside.Back {
+        margin-bottom: 20px;
+    }
+
+    aside.Back a {
+        text-decoration: none;
+        font-size: 20px;
+        color: var(--primary-color);
+        transition: color 0.3s;
+    }
+
+    aside.Back a:hover {
+        color: var(--hover-color);
+    }
+
+    form.Editing_Form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form.Editing_Form label {
+        margin: 10px 0 5px;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    form.Editing_Form input[type="text"],
+    form.Editing_Form input[type="file"] {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        transition: border-color 0.3s;
+    }
+
+    form.Editing_Form input[type="text"]:focus,
+    form.Editing_Form input[type="file"]:focus {
+        border-color: var(--primary-color);
+    }
+
+    form.Editing_Form .submitform {
+        padding: 10px 15px;
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+    form.Editing_Form .submitform:hover {
+        background-color: var(--hover-color);
+    }
+</style>
+<nav>
+    <li><a href="/profile" class="link">Profile</a></li>
+    <li><a href="/moreprofs" class="link">More Profiles</a></li>
+    <li><a href="/" class="link">News</a></li>
+    <li><a href="/logout" class="link">Logout</a></li>
+</nav>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<section class="form">
+    <aside class="Back">
+        <a href="/profile">◀</a>
+    </aside>
+    <form action="" method="post" class="Editing_Form">
+        {% csrf_token %}
+        <input type="file" name="profpic" id="pic" accept="image/*" />
+        <label for="">Profile Pic</label>
+        <label for="">Username:</label>
+        <input type="text" name="username" placeholder="Enter new username" />
+        <label for="">First Name:</label>
+        <input type="text" name="first_name" placeholder="Enter new first name" />
+        <label for="">Last Name:</label>
+        <input type="text" name="last_name" placeholder="Enter new last name" />
+        <label for="">Email:</label>
+        <input type="text" name="email" placeholder="Enter new email" />
+        <input type="submit" value="Submit" name="SubmitForm" class="submitform" />
+    </form>
+</section>
+{% endblock %}

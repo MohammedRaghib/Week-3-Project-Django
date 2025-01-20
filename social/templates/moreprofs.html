@@ -1,0 +1,106 @@
+{% extends 'root.html' %}
+{% block title %}Profile{% endblock %}
+{% load static%}
+{% block content %}
+<style>
+    .container {
+        max-width: 800px;
+        margin-top: 100px;
+        padding: 20px;
+        background-color: var(--form-bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .search-header {
+        font-size: 24px;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    .hunter-input {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        width: 50%;
+        margin-right: 10px;
+    }
+
+    .safari-button {
+        padding: 10px 20px;
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .safari-button:hover {
+        background-color: var(--hover-color);
+    }
+
+    .profile-zoo {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .jungle-creature {
+        margin: 10px 0;
+    }
+
+    .jungle-path {
+        text-decoration: none;
+        font-size: 18px;
+        color: var(--primary-color);
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .jungle-path:hover {
+        color: var(--hover-color);
+    }
+</style>
+<nav>
+    <li><a href="/profile" class="link">Profile</a></li>
+    <li><a href="/moreprofs" class="link">More Profiles</a></li>
+    <li><a href="/" class="link">News</a></li>
+    <li><a href="/logout" class="link">Logout</a></li>
+</nav>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="container">
+    <h1 class="search-header">Profile Safari</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="term" placeholder="Hunt for Profiles..." class="hunter-input">
+        <button type="submit" class="safari-button">Search</button>
+    </form>
+
+    <ul class="profile-zoo">
+        {% if ex_profs|length > 0 %}
+        {% for profile in ex_profs %}
+        <li class="jungle-creature">
+            <a href="/profile/{{ profile.user.id }}" class="jungle-path">{{ profile.user.username }}</a>
+        </li>
+        {% endfor %}
+        {% else %}
+        <p>No Profiles found</p>
+        {% endif %}
+    </ul>
+
+</div>
+{% endblock %}

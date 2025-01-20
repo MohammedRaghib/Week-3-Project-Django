@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media App - Home</title>
+    <style>
+        :root {
+            --primary-color: #1E3A8A;
+            --secondary-color: #FF6F61;
+            --neutral-color: #708090;
+            --border-color: #6A5ACD;
+            --form-bg-color: #F2F2F2;
+            --hover-color: #003366;
+            --success-bg: #d4edda;
+            --error-bg: #f8d7da;
+            --info-bg: #d1ecf1;
+        }
+
+        body {
+            background-color: var(--neutral-color);
+            color: var(--primary-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            background-color: var(--secondary-color);
+            padding: 20px 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            justify-content: space-evenly;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav li {
+            list-style-type: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--hover-color);
+        }
+
+        ul.messages li {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.messages li.success {
+            background-color: var(--success-bg);
+            color: var(--primary-color);
+        }
+
+        ul.messages li.error {
+            background-color: var(--error-bg);
+            color: #721c24;
+        }
+
+        ul.messages li.info {
+            background-color: var(--info-bg);
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        {% block content %}
+        {% include 'news.html' %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

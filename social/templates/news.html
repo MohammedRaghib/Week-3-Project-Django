@@ -1,0 +1,307 @@
+{% extends 'root.html' %}
+{% block content %}
+<style>
+    :root {
+        --primary-color: #1E3A8A;
+        --secondary-color: #FF6F61;
+        --neutral-color: #708090;
+        --border-color: #6A5ACD;
+        --form-bg-color: #F2F2F2;
+        --hover-color: #003366;
+    }
+
+    body {
+        background-color: var(--neutral-color);
+        color: var(--primary-color);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav {
+        display: flex;
+        background-color: var(--secondary-color);
+        padding: 20px 30px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        justify-content: space-evenly;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    nav li {
+        list-style-type: none;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    nav a:hover {
+        color: var(--hover-color);
+    }
+
+    #form {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 90px;
+        width: 100%;
+    }
+
+    .form {
+        border-radius: 10px;
+        border: 2px solid var(--border-color);
+        padding: 20px;
+        width: 30%;
+        background-color: var(--form-bg-color);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .form:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .form p {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form #id_photo {
+        width: 90%;
+        border: 2px solid var(--border-color);
+        color: var(--primary-color);
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .form input[type="submit"] {
+        background-color: var(--secondary-color);
+        color: white;
+        border-radius: 5px;
+        border: solid 2px var(--border-color);
+        width: 100%;
+        padding: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .form input[type="submit"]:hover {
+        background-color: var(--hover-color);
+    }
+
+    .form textarea {
+        border-radius: 5px;
+        border: solid 2px var(--border-color);
+        padding: 10px;
+        width: 90%;
+        margin-bottom: 10px;
+    }
+
+    .posts {
+        display: grid;
+        grid-template-columns: 300px 300px 300px;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 150px;
+        width: 90%;
+    }
+
+    .post {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--border-color);
+        background-color: var(--form-bg-color);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .post:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .post img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--border-color);
+    }
+
+    .post h3 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    .post p {
+        text-align: center;
+        color: var(--neutral-color);
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .actions a {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .actions a:hover {
+        color: var(--hover-color);
+    }
+
+    .comment-section summary {
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: var(--primary-color);
+    }
+
+    .all-comments {
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-height: 300px;
+        overflow-y: auto;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .comment-form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .comment-form textarea {
+        border-radius: 5px;
+        border: solid 2px var(--border-color);
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 80%;
+    }
+
+    .comment-form button {
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .comment-form button:hover {
+        background-color: var(--hover-color);
+    }
+
+    .commenter {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .commenter:last-child {
+        border-bottom: none;
+    }
+
+    .comment-user {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--primary-color);
+    }
+
+    .comment {
+        color: var(--neutral-color);
+    }
+</style>
+
+<nav>
+    <li><a href="/profile" class="link">Profile</a></li>
+    <li><a href="/moreprofs" class="link">More Profiles</a></li>
+    <li><a href="/" class="link">News</a></li>
+    <li><a href="/logout" class="link">Logout</a></li>
+</nav>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="" method="post" id="form">
+    <main class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Post" name="submit-post">
+    </main>
+</form>
+
+<main class="posts">
+    {% for post in posts %}
+    <div class="post">
+        <h3 class="username">{{ post.user.user.username }}</h3>
+        <p class="content">{{ post.content }}</p>
+        {% if post.photo %}
+        <img src="{{ post.photo.url }}" alt="">
+        {% endif %}
+        <div class="actions">
+            <a href="/like/{{ post.id }}" style="text-decoration: none;">👍 {{ post.likes_count }}</a>
+            <a href="/dislike/{{ post.id }}" style="text-decoration: none;">👎 {{ post.dislikes_count }}</a>
+            <details class="comment-section">
+                <summary>💬 Comments</summary>
+                <section class="all-comments">
+                    <form action="" method="post" class="comment-form">
+                        {% csrf_token %}
+                        <textarea name="comment" id="commentcont" placeholder="Say something..."></textarea>
+                        <button type="submit" value="{{ post.id }}" name="submit-comment" id="commentbtn">✔</button>
+                    </form>
+                    {% for comment in post.comments.all %}
+                    <div class="commenter">
+                        <span class="comment-user"><b>{{ comment.user.username }}</b></span>
+                        <span class="comment">{{ comment.content }}</span>
+                    </div>
+                    {% endfor %}
+                </section>
+            </details>
+        </div>
+    </div>
+    {% endfor %}
+</main>
+{% endblock %}

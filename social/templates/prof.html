@@ -1,0 +1,128 @@
+{% extends 'root.html' %}
+{% block title %}Profile{% endblock %}
+{% load static %}
+{% block content %}
+<style>
+    section {
+        margin-top: 100px;
+        max-width: 600px;
+        padding: 20px;
+        background-color: var(--form-bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    aside.Open {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    aside.Open a {
+        text-decoration: none;
+        font-size: 20px;
+        color: var(--primary-color);
+        transition: color 0.3s;
+    }
+
+    aside.Open a:hover {
+        color: var(--hover-color);
+    }
+
+    main.Profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    main.Profile img {
+        border-radius: 50%;
+        border: 2px solid var(--border-color);
+        margin-bottom: 20px;
+    }
+
+    main.Profile label {
+        font-weight: bold;
+        color: var(--primary-color);
+        display: block;
+        margin-top: 10px;
+    }
+
+    main.Profile span {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--neutral-color);
+    }
+
+    main.Profile form button {
+        padding: 10px 20px;
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+    main.Profile form button:hover {
+        background-color: var(--hover-color);
+    }
+</style>
+<nav>
+    <li><a href="/profile" class="link">Profile</a></li>
+    <li><a href="/moreprofs" class="link">More Profiles</a></li>
+    <li><a href="/" class="link">News</a></li>
+    <li><a href="/logout" class="link">Logout</a></li>
+</nav>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<section>
+    <aside class="Open">
+        <a href="/editprof">🖊</a>
+    </aside>
+    <main class="Profile">
+        {% if different_user %}
+        {% if prof.photo %}
+        <img src="{{ prof.photo.url }}" alt="" width="100px" height="100px" style="border-radius: 40%;" />
+        {% else %}
+        <img src="https://res-console.cloudinary.com/djenpeqlo/thumbnails/v1/image/upload/v1736408709/eWNtMm5sc3h5aW9iYXd4MGxyaHE=/drilldown" alt="" class="default" width="100px" height="100px"
+            style="border-radius: 40%;">
+        {% endif %}
+        <label for="" class="username">Username:</label>
+        <span>{{ prof.user.username }}</span>
+        {% if is_following %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="unfollow">UnFollow</button>
+        </form>
+        {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="follow">Follow</button>
+        </form>
+        {% endif %}
+        {% else %}
+        {% if prof.photo %}
+        <img src="{{ prof.photo.url }}" alt="" width="100px" height="100px" style="border-radius: 40%;" />
+        {% else %}
+        <img src="https://res-console.cloudinary.com/djenpeqlo/thumbnails/v1/image/upload/v1736408709/eWNtMm5sc3h5aW9iYXd4MGxyaHE=/drilldown" alt="" class="default" width="100px" height="100px"
+            style="border-radius: 40%;">
+        {% endif %}
+        <label for="" class="username">Username:</label>
+        <span>{{ prof.user.username }}</span>
+        <label for="" class="first_name">First Name:</label>
+        <span>{{ prof.user.first_name }}</span>
+        <label for="" class="last_name">Last Name:</label>
+        <span>{{ prof.user.last_name }}</span>
+        <label for="" class="email">Email:</label>
+        <span>{{ prof.user.email }}</span>
+        {% endif %}
+    </main>
+</section>
+{% endblock %}
